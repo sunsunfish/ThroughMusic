@@ -4,12 +4,6 @@ import { deepmerge } from '@mui/utils';
 import { Themes } from './types';
 
 const sharedTheme = {
-  palette: {
-    background: {
-      default: '#fafafa',
-      paper: '#fff',
-    },
-  },
   components: {
     MuiButtonBase: {
       defaultProps: {
@@ -39,12 +33,11 @@ const themes: Record<Themes, ThemeOptions> = {
   light: deepmerge(sharedTheme, {
     palette: {
       mode: 'light',
-      background: {
-        default: '#fafafa',
-        paper: '#fff',
-      },
       primary: {
-        main: '#3f51b5',
+        main: '#ec4141',
+      },
+      secondary: {
+        main: '#fbd9d9',
       },
     },
   }),
@@ -52,12 +45,11 @@ const themes: Record<Themes, ThemeOptions> = {
   dark: deepmerge(sharedTheme, {
     palette: {
       mode: 'dark',
-      background: {
-        default: '#111',
-        paper: '#171717',
-      },
       primary: {
-        main: '#333',
+        main: '#222225',
+      },
+      secondary: {
+        main: '#adafb2',
       },
     },
   }),

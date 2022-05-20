@@ -1,34 +1,31 @@
+import { useSearchMusicByKeyword } from '@/api';
+import { ISong } from '@/api/types';
 import Meta from '@/components/Meta';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
-import useOrientation from '@/hooks/useOrientation';
-
-import muiLogo from './logos/mui.svg';
-import pwaLogo from './logos/pwa.svg';
-import reactLogo from './logos/react_ed.svg';
-import recoilLogo from './logos/recoil.svg';
-import rrLogo from './logos/rr.svg';
-import tsLogo from './logos/ts.svg';
-import viteLogo from './logos/vite.svg';
-import { Image } from './styled';
+import { useEffect, useState } from 'react';
 
 function Welcome() {
-  const isPortrait = useOrientation();
+  const [songs, setSongs] = useState<ISong[]>();
 
-  const width = isPortrait ? '40%' : '30%';
-  const height = isPortrait ? '30%' : '40%';
+  const { data, error, isLoading } = useSearchMusicByKeyword('海阔天空');
+
+  useEffect(() => {
+    setSongs(data?.result.songs);
+  }, [data]);
 
   return (
     <>
-      <Meta title="Welcome" />
-      <FullSizeCenteredFlexBox flexDirection={isPortrait ? 'column' : 'row'}>
-        <Image alt="react-router" src={rrLogo} />
-        <Image alt="vite" src={viteLogo} />
-        <Image alt="typescript" src={tsLogo} />
-        <Image alt="react" src={reactLogo} sx={{ width, height }} />
-        <Image alt="mui" src={muiLogo} />
-        <Image alt="recoil" src={recoilLogo} />
-        <Image alt="pwa" src={pwaLogo} />
-      </FullSizeCenteredFlexBox>
+      <Meta title="HomePage" />
+      {isLoading}
+      {error}
+      {songs?.map((song) => {
+        return (
+          <div key={song.id}>
+            <h1>
+              id:{song.id} name:{song.name}
+            </h1>
+          </div>
+        );
+      })}
     </>
   );
 }

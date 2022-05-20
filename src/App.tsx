@@ -10,7 +10,6 @@ import Header from '@/sections/Header';
 import HotKeys from '@/sections/HotKeys';
 import Notifications from '@/sections/Notifications';
 import SW from '@/sections/SW';
-import Sidebar from '@/sections/Sidebar';
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
       <SW />
       <BrowserRouter>
         <Header />
-        <Sidebar />
         <Pages />
       </BrowserRouter>
     </Fragment>
