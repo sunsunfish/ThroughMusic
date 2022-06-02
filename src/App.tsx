@@ -12,7 +12,7 @@ import Sidebar from '@/sections/Sidebar';
 import Footer from '@/sections/Footer';
 import Notifications from '@/sections/Notifications';
 import SW from '@/sections/SW';
-import { LayoutBox, LayoutContentBox } from '@/components/styled';
+import { LayoutBox } from '@/components/styled';
 
 function App() {
   return (
@@ -24,10 +24,8 @@ function App() {
       <BrowserRouter>
         <LayoutBox>
           <Header />
-          <LayoutContentBox>
-            <Pages />
-            <Sidebar />
-          </LayoutContentBox>
+          <Sidebar />
+          <Pages />
           <Footer />
         </LayoutBox>
       </BrowserRouter>
