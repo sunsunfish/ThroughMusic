@@ -15,4 +15,18 @@ const FullSizeCenteredFlexBox = styled(CenteredFlexBox)({
   height: '100%',
 });
 
-export { FlexBox, CenteredFlexBox, FullSizeCenteredFlexBox };
+const LayoutBox = styled(Box)({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gridTemplateRows: 'repeat(3, 1fr)',
+  height: '100vh',
+  overflow: 'hidden',
+});
+const LayoutContentBox = styled(Box)({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gridTemplateRows: 'repeat(3, 1fr)',
+  height: 'calc(100vh - 128px)',
+});
+
+export { FlexBox, CenteredFlexBox, FullSizeCenteredFlexBox, LayoutBox, LayoutContentBox };

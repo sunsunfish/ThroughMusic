@@ -1,7 +1,7 @@
 import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import ThemeIcon from '@mui/icons-material/InvertColors';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
+
 import Divider from '@mui/material/Divider';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
@@ -10,14 +10,14 @@ import { FlexBox } from '@/components/styled';
 import useHotKeysDialog from '@/store/hotkeys';
 import useTheme from '@/store/theme';
 
-import { HotKeysButton, ChangeDarkButton } from './styled';
+import { HotKeysButton, ChangeDarkButton, LayoutHeaderBox } from './styled';
 
 function Header() {
   const [, themeActions] = useTheme();
   const [, hotKeysDialogActions] = useHotKeysDialog();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <LayoutHeaderBox sx={{ flexGrow: 1 }}>
       <AppBar color="primary" elevation={1} position="static">
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <FlexBox sx={{ alignItems: 'center' }}>
@@ -46,7 +46,7 @@ function Header() {
           </FlexBox>
         </Toolbar>
       </AppBar>
-    </Box>
+    </LayoutHeaderBox>
   );
 }
 

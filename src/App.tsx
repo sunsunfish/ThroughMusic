@@ -8,8 +8,11 @@ import AppErrorBoundaryFallback from '@/error-handling/fallbacks/App';
 import Pages from '@/routes/Pages';
 import Header from '@/sections/Header';
 import HotKeys from '@/sections/HotKeys';
+import Sidebar from '@/sections/Sidebar';
+import Footer from '@/sections/Footer';
 import Notifications from '@/sections/Notifications';
 import SW from '@/sections/SW';
+import { LayoutBox, LayoutContentBox } from '@/components/styled';
 
 function App() {
   return (
@@ -19,8 +22,14 @@ function App() {
       <HotKeys />
       <SW />
       <BrowserRouter>
-        <Header />
-        <Pages />
+        <LayoutBox>
+          <Header />
+          <LayoutContentBox>
+            <Pages />
+            <Sidebar />
+          </LayoutContentBox>
+          <Footer />
+        </LayoutBox>
       </BrowserRouter>
     </Fragment>
   );

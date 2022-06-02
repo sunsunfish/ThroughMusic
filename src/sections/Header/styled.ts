@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
@@ -22,4 +23,8 @@ const ChangeDarkButton = styled(IconButton)(({ theme }) => ({
   },
 }));
 
-export { HotKeysButton, ChangeDarkButton };
+const LayoutHeaderBox = styled(Box)(() => ({
+  gridArea: '1 / 1 / 2 / 3',
+}));
+
+export { HotKeysButton, ChangeDarkButton, LayoutHeaderBox };
