@@ -35,7 +35,7 @@ axios.interceptors.response.use(undefined, (error) => {
   config.__retryCount += 1;
 
   const backoff = new Promise<void>((resolve) => {
-    setTimeout(function () {
+    setTimeout(() => {
       resolve();
     }, config.retryDelay || 1000);
   });
