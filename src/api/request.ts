@@ -18,34 +18,6 @@ const axios = Axios.create({
   retryDelay: 1000,
 });
 
-axios.interceptors.response.use(undefined, (error) => {
-  const config = error.config;
-  // skip retry for failed requests from the cache
-  if (!config || config.retry) return Promise.reject(error);
-
-  // set retry count
-  config.__retryCount = config.__retryCount || 0;
-
-  // over retry limit
-  if (config.__retryCount >= config.retry) {
-    // return error and auto retry
-    return Promise.reject(error);
-  }
-
-  config.__retryCount += 1;
-
-  const backoff = new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, config.retryDelay || 1000);
-  });
-
-  // return retry
-  return backoff.then(function () {
-    return axios(config);
-  });
-});
-
 axios.interceptors.response.use(
   (response) => {
     const data = response.data;
@@ -56,8 +28,23 @@ axios.interceptors.response.use(
     return Promise.reject(new Error(response.statusText || 'Error'));
   },
   (error) => {
-    console.log('error:', error);
-    return Promise.reject(new Error(error.statusText || 'Error'));
+    const config = error.config;
+    // skip retry for failed requests from the cache
+    if (!config || !config.retry) return Promise.reject(error);
+
+    // set retry count
+    config.__retryCount = config.__retryCount || 0;
+
+    // over retry limit
+    // return error and auto retry
+    if (config.__retryCount >= config.retry) return Promise.reject(error);
+
+    config.__retryCount += 1;
+
+    const backoff = new Promise<void>((resolve) => setTimeout(resolve, config.retryDelay || 1000));
+
+    // return retry
+    return backoff.then(() => axios(config));
   },
 );
 export const AxiosContext = createContext<AxiosInstance>(
