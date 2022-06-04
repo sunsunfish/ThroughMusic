@@ -17,12 +17,17 @@ const useSearchMusicByKeyword = (
       limit,
       offset: (offset - 1) * limit,
     };
-    const data: IResult<ISearchResultList> = await axios.get(`/cloudsearch`, {
-      params,
-      paramsSerializer: (params) => {
-        return qs.stringify(params);
-      },
-    });
+    let data: IResult<ISearchResultList> | null = null;
+    try {
+      data = await axios.get(`/cloudsearch`, {
+        params,
+        paramsSerializer: (params) => {
+          return qs.stringify(params);
+        },
+      });
+    } catch (_) {
+      // do nothing
+    }
     return data;
   };
   return useQuery('SearchMusicByKeyword', () => service());
