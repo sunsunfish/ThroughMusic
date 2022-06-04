@@ -22,7 +22,13 @@ export interface ISearchResultList {
   songs: ISong[]; // 搜索结果
 }
 
+export interface ISongAuthor {
+  id: number;
+  name: string;
+}
+
 export interface ISong {
   name: string; // 歌曲名
   id: number; // 歌曲id
+  ar: ISongAuthor[]; // 歌曲作者
 }

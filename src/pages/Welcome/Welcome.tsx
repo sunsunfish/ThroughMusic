@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 function Welcome() {
   const [songs, setSongs] = useState<ISong[]>();
 
-  const { data, error, isLoading } = useSearchMusicByKeyword('大家一起喜羊羊');
+  const { data, error, isLoading } = useSearchMusicByKeyword('夜に駆ける');
 
   useEffect(() => {
     setSongs(data?.result.songs);
