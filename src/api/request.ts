@@ -1,5 +1,8 @@
 import Axios, { AxiosInstance } from 'axios';
 import { createContext, useContext } from 'react';
+import { IResult } from './types';
+import { useQuery } from 'react-query';
+import qs from 'qs';
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
@@ -60,6 +63,36 @@ export const AxiosContext = createContext<AxiosInstance>(
 
 export const useAxios = () => {
   return useContext(AxiosContext);
+};
+
+export const useRequest = <P, R, C>({
+  url,
+  params,
+  config,
+  key,
+}: {
+  url: string;
+  params: P;
+  config?: C;
+  key: string;
+}) => {
+  const axios = useAxios();
+  const service = async () => {
+    let data: (IResult & R) | null = null;
+    try {
+      data = await axios.get(url, {
+        params,
+        paramsSerializer: (params) => {
+          return qs.stringify(params);
+        },
+        ...config,
+      });
+    } catch (_) {
+      return null;
+    }
+    return data;
+  };
+  return useQuery(key, () => service());
 };
 
 export default axios;
