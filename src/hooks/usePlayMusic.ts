@@ -1,20 +1,29 @@
+import { useSongDetail, useSongUrl } from '@/api/music';
 import { ISong } from '@/api/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAudio } from 'react-use';
 
 function usePlayMusic() {
-  const [music] = useState<ISong>({
-    name: '夜に駆ける',
+  const [song, setSong] = useState<Pick<ISong, 'id'> & Partial<ISong>>({
     id: 1863421801,
-    ar: [{ id: 29026799, name: '多多poi' }],
   });
   const [audio, state, controls, ref] = useAudio({
-    src: 'http://m701.music.126.net/20220604204338/66a1708c75fb004bade0cc5fdda1a609/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/14083824785/3066/3131/c327/3b6885cf754f2fc86dfc6945bd3f888e.mp3',
+    src: song?.url || '',
     autoPlay: false,
   });
 
+  const { data: detail } = useSongDetail(song?.id);
+  const { data: url } = useSongUrl(song.id);
+  useEffect(() => {
+    setSong({
+      ...song,
+      ...detail?.songs[0],
+      url: url?.data[0].url,
+    });
+  }, [song, detail, url]);
+
   return {
-    music,
+    song,
     audio,
     state,
     controls,
