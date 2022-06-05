@@ -15,12 +15,13 @@ function usePlayMusic() {
   const { data: detail } = useSongDetail(song?.id);
   const { data: url } = useSongUrl(song.id);
   useEffect(() => {
-    setSong({
-      ...song,
-      ...detail?.songs[0],
-      url: url?.data[0].url,
+    setSong((preState) => {
+      return Object.assign({}, preState, {
+        ...detail?.songs[0],
+        url: url?.data[0].url,
+      });
     });
-  }, [song, detail, url]);
+  }, [detail, url]);
 
   return {
     song,

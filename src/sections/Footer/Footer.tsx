@@ -13,12 +13,12 @@ import PauseCircle from '@mui/icons-material/PauseCircle';
 import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
 import { FlexBox } from '@/components/styled';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import Volume from './Volume';
 
 function Footer() {
   const { song, audio, state, controls } = usePlayMusic();
@@ -69,7 +69,12 @@ function Footer() {
       <FunctionButtonBox>
         <RepeatIcon />
         <PlaylistPlayIcon />
-        <VolumeUpIcon />
+        <Volume
+          volume={state.volume}
+          muted={state.muted}
+          onChange={(volume: number) => controls.volume(volume)}
+          onMuted={(muted: boolean) => (muted ? controls.mute() : controls.unmute())}
+        />
       </FunctionButtonBox>
     </LayoutFooterBox>
   );
