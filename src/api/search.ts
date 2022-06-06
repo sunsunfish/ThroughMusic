@@ -1,36 +1,30 @@
-import { useQuery } from 'react-query';
-import { useAxios } from './request';
-import qs from 'qs';
-import { ESearchType, IResult, ISearchResultList } from './types';
+import { useRequest } from './request';
+import { ESearchType, ISearchResultList } from './types';
 
-const useSearchMusicByKeyword = (
+const useSearchSongByKeyword = (
   keywords: string,
   type: ESearchType = ESearchType.单曲,
   limit = 10,
   offset = 1,
-) => {
-  const axios = useAxios();
-  const service = async () => {
-    const params = {
+) =>
+  useRequest<
+    {
+      keywords: string;
+      type: ESearchType;
+      limit: number;
+      offset: number;
+    },
+    { result: ISearchResultList },
+    unknown
+  >({
+    url: '/cloudsearch',
+    params: {
       keywords,
       type,
       limit,
-      offset: (offset - 1) * limit,
-    };
-    let data: IResult<ISearchResultList> | null = null;
-    try {
-      data = await axios.get(`/cloudsearch`, {
-        params,
-        paramsSerializer: (params) => {
-          return qs.stringify(params);
-        },
-      });
-    } catch (_) {
-      // do nothing
-    }
-    return data;
-  };
-  return useQuery('SearchMusicByKeyword', () => service());
-};
+      offset,
+    },
+    key: `songDetail-${keywords}-${type}-${limit}-${offset}`,
+  });
 
-export { useSearchMusicByKeyword };
+export { useSearchSongByKeyword };

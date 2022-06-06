@@ -1,12 +1,12 @@
-import { useSearchMusicByKeyword } from '@/api';
-import { ISong } from '@/api/types';
+import { useSearchSongByKeyword } from '@/api';
+import { ISearchSongResult } from '@/api/types';
 import Meta from '@/components/Meta';
 import { useEffect, useState } from 'react';
 
 function Welcome() {
-  const [songs, setSongs] = useState<ISong[]>();
+  const [songs, setSongs] = useState<ISearchSongResult[]>();
 
-  const { data, error, isLoading } = useSearchMusicByKeyword('夜に駆ける');
+  const { data, error, isLoading } = useSearchSongByKeyword('夜に駆ける');
 
   useEffect(() => {
     setSongs(data?.result.songs);
@@ -21,7 +21,7 @@ function Welcome() {
         return (
           <div key={song.id}>
             <h1>
-              id:{song.id} name:{song.name}
+              id:{song.id} name:{song.name} ar:{song.ar.map((ar) => ar.name).join('/')}
             </h1>
           </div>
         );

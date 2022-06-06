@@ -1,6 +1,5 @@
-export interface IResult<T> {
+export interface IResult {
   code: number;
-  result: T;
 }
 
 export enum ESearchType {
@@ -19,8 +18,10 @@ export enum ESearchType {
 export interface ISearchResultList {
   searchQcReminder: unknown; // 搜索质量提醒
   songCount: 300; // 搜索结果总数
-  songs: ISong[]; // 搜索结果
+  songs: ISearchSongResult[]; // 搜索结果
 }
+
+export type ISearchSongResult = Pick<ISong, 'name' | 'ar' | 'id'>;
 
 export interface ISongAuthor {
   id: number;
@@ -31,4 +32,12 @@ export interface ISong {
   name: string; // 歌曲名
   id: number; // 歌曲id
   ar: ISongAuthor[]; // 歌曲作者
+  al: ISongAlbum; // 歌曲专辑
+  url?: string; // 歌曲链接
+}
+
+export interface ISongAlbum {
+  id: number; // 专辑id
+  name: string; // 专辑名
+  picUrl: string; // 专辑图片
 }

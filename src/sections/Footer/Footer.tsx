@@ -13,12 +13,15 @@ import PauseCircle from '@mui/icons-material/PauseCircle';
 import SkipNext from '@mui/icons-material/SkipNext';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
 import { FlexBox } from '@/components/styled';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import RepeatIcon from '@mui/icons-material/Repeat';
+import ScreenShareOutlinedIcon from '@mui/icons-material/ScreenShareOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import Volume from './Volume';
 
 function Footer() {
-  const { music, audio, state, controls } = usePlayMusic();
+  const { song, audio, state, controls } = usePlayMusic();
 
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60);
@@ -30,25 +33,30 @@ function Footer() {
     <LayoutFooterBox>
       <ProgressBarBox style={{ width: `${((state.time / state.duration) * 100).toFixed(2)}%` }} />
       <FlexBox sx={{ width: '30vw', padding: '12px', columnGap: '10px' }}>
-        <Avatar variant="rounded"></Avatar>
+        <Avatar variant="rounded" src={song?.al?.picUrl}></Avatar>
         <MusicInfoBox>
-          <Box>{music.name}</Box>
+          <Box>{song?.name}</Box>
           <FlexBox sx={{ color: '#c4c4c4' }}>
             <Box sx={{ margin: '0 10px' }}>-</Box>
-            {music.ar.map((artist, idx) => (
+            {song?.ar?.map((artist, idx, arr) => (
               <a key={artist.id} style={{ cursor: 'pointer' }}>
                 {artist.name}
-                {idx !== music.ar.length - 1 && <Box sx={{ margin: '0 10px' }}>/</Box>}
+                {idx !== arr.length - 1 && <Box sx={{ margin: '0 10px' }}>/</Box>}
               </a>
             ))}
           </FlexBox>
-          <Box>
+          <Box sx={{ color: '#b2b2b2' }}>
             {formatTime(state.time)} / {formatTime(state.duration)}
           </Box>
         </MusicInfoBox>
       </FlexBox>
       <ControlButtonBox>
         {audio}
+        {state.paused ? (
+          <FavoriteIcon color="primary" />
+        ) : (
+          <FavoriteBorderOutlinedIcon color="primary" />
+        )}
         <SkipPrevious color="primary" />
         {state.paused ? (
           <PlayCircle sx={{ fontSize: '40px' }} color="primary" onClick={controls.play} />
@@ -56,11 +64,17 @@ function Footer() {
           <PauseCircle sx={{ fontSize: '40px' }} color="primary" onClick={controls.pause} />
         )}
         <SkipNext color="primary" />
+        <ScreenShareOutlinedIcon />
       </ControlButtonBox>
       <FunctionButtonBox>
         <RepeatIcon />
         <PlaylistPlayIcon />
-        <VolumeUpIcon />
+        <Volume
+          volume={state.volume}
+          muted={state.muted}
+          onChange={(volume: number) => controls.volume(volume)}
+          onMuted={(muted: boolean) => (muted ? controls.mute() : controls.unmute())}
+        />
       </FunctionButtonBox>
     </LayoutFooterBox>
   );
