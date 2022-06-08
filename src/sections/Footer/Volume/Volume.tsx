@@ -12,23 +12,27 @@ function Volume(props: {
   onMuted: (muted: boolean) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const [sliderChange, setSliderChange] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setSliderChange(false);
   };
-  const handleVolumeChange = (event: object, value: number | number[]) => {
+  const handleVolumeChange = (event: MouseEvent, value: number | number[]) => {
     props.onChange(value as number);
+    setSliderChange(true);
   };
   const handleVolumeMuted = () => {
+    if (sliderChange) return setSliderChange(false);
     props.onMuted(!props.muted);
   };
   return (
     <>
       <IconButton
-        sx={{ position: 'relative' }}
+        sx={{ position: 'relative', padding: '0' }}
         onMouseEnter={handleOpen}
         onMouseLeave={handleClose}
         onClick={handleVolumeMuted}
