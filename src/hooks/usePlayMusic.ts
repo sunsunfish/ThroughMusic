@@ -1,4 +1,4 @@
-import { useSongDetail, useSongUrl } from '@/api/music';
+import { useSongDetail, useSongUrl } from '@/api/songs';
 import { ISong } from '@/api/types';
 import { useEffect, useState } from 'react';
 import { useAudio } from 'react-use';

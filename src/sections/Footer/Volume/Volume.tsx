@@ -31,12 +31,9 @@ function Volume(props: {
         sx={{ position: 'relative' }}
         onMouseEnter={handleOpen}
         onMouseLeave={handleClose}
+        onClick={handleVolumeMuted}
       >
-        {props.muted ? (
-          <VolumeOffIcon onClick={handleVolumeMuted} />
-        ) : (
-          <VolumeUpIcon onClick={handleVolumeMuted} />
-        )}
+        {props.muted ? <VolumeOffIcon /> : <VolumeUpIcon />}
         <VolumeSliderBox sx={{ display: open ? 'block' : 'none' }} onMouseLeave={handleClose}>
           <Slider
             color="primary"
