@@ -41,3 +41,8 @@ export interface ISongAlbum {
   name: string; // 专辑名
   picUrl: string; // 专辑图片
 }
+
+export interface IUserAccount {
+  id: string; // 用户id
+  userName: string; // 用户姓名
+}
