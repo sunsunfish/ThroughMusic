@@ -1,8 +1,10 @@
-import Axios, { AxiosInstance } from 'axios';
 import { createContext, useContext } from 'react';
-import { IResult } from './types';
-import { useQuery } from 'react-query';
+import { UseQueryOptions, useQuery } from 'react-query';
+
+import Axios, { AxiosInstance } from 'axios';
 import qs from 'qs';
+
+import { IResult } from './types';
 
 declare module 'axios' {
   export interface AxiosRequestConfig {
@@ -65,20 +67,23 @@ export const useAxios = () => {
   return useContext(AxiosContext);
 };
 
+type TRequestResult<T> = (IResult & T) | null;
 export const useRequest = <P, R, C>({
   url,
   params,
   config,
   key,
+  options,
 }: {
   url: string;
   params: P;
   config?: C;
   key: string;
+  options?: Omit<UseQueryOptions<TRequestResult<R>>, 'queryKey' | 'queryFn'>;
 }) => {
   const axios = useAxios();
   const service = async () => {
-    let data: (IResult & R) | null = null;
+    let data: TRequestResult<R> = null;
     try {
       data = await axios.get(url, {
         params,
@@ -92,7 +97,7 @@ export const useRequest = <P, R, C>({
     }
     return data;
   };
-  return useQuery(key, () => service());
+  return useQuery<TRequestResult<R>, unknown>(key, service, options);
 };
 
 export default axios;
