@@ -14,8 +14,7 @@ const useSearchSongByKeyword = (
       limit: number;
       offset: number;
     },
-    { result: ISearchResultList },
-    unknown
+    { result: ISearchResultList }
   >({
     url: '/cloudsearch',
     params: {
