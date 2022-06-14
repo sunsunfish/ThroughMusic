@@ -1,3 +1,7 @@
+import { IProfile, IUserAccount } from '@/api/login';
+
+export type IUserInfo = IProfile & IUserAccount;
+
 export interface IResult {
   code: number;
 }
@@ -40,9 +44,4 @@ export interface ISongAlbum {
   id: number; // 专辑id
   name: string; // 专辑名
   picUrl: string; // 专辑图片
-}
-
-export interface IUserAccount {
-  id: string; // 用户id
-  userName: string; // 用户姓名
 }

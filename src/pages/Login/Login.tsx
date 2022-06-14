@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocalStorage } from 'react-use';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -11,18 +12,33 @@ import useLoginDialog from '@/store/login';
 import { FormItem, MyTextField } from './styled';
 
 function Login() {
-  const [isLoginDialogOpen] = useLoginDialog();
+  const [isLoginDialogOpen, loginActions] = useLoginDialog();
+  const [, setToken] = useLocalStorage('token', '');
+  const [, setUserInfo] = useLocalStorage('userInfo');
 
   const [form, setForm] = useState({
     phone: '',
     password: '',
   });
 
-  const { refetch } = useLoginCellphone(form.phone, form.password);
+  const { data, refetch } = useLoginCellphone(form.phone, form.password);
+
+  useEffect(() => {
+    const token = data?.token;
+    const avatarUrl = data?.profile.avatarUrl;
+    const userName = data?.account.userName;
+    setToken(token);
+    if (!avatarUrl) return;
+    setUserInfo({
+      avatarUrl,
+      userName,
+    });
+    loginActions.close();
+  });
 
   return (
     <>
-      <Dialog fullWidth maxWidth="xs" open={isLoginDialogOpen}>
+      <Dialog onClose={loginActions.close} fullWidth maxWidth="xs" open={isLoginDialogOpen}>
         <DialogTitle>手机号登录</DialogTitle>
         <DialogContent>
           <form>

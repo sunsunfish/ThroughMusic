@@ -4,7 +4,7 @@ import type { Actions } from './types';
 
 const loginDialogState = atom<boolean>({
   key: 'loginDialogState',
-  default: true,
+  default: false,
 });
 
 function useLoginDialog(): [boolean, Actions] {

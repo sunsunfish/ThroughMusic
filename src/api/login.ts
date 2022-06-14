@@ -1,5 +1,11 @@
 import { useRequest } from './request';
-import { IUserAccount } from './types';
+
+export interface IProfile {
+  avatarUrl: string | undefined;
+}
+export interface IUserAccount {
+  userName: string | undefined; // 用户姓名
+}
 
 // 手机登录
 const useLoginCellphone = (phone: string, password: string) =>
@@ -8,6 +14,7 @@ const useLoginCellphone = (phone: string, password: string) =>
     {
       token: string;
       account: IUserAccount;
+      profile: IProfile;
     },
     unknown
   >({
@@ -19,6 +26,7 @@ const useLoginCellphone = (phone: string, password: string) =>
     key: `loginCellphone-${phone}`,
     options: {
       enabled: false,
+      suspense: false,
     },
   });
 
