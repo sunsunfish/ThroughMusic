@@ -1,17 +1,39 @@
-import Typography from '@mui/material/Typography';
-
 import Meta from '@/components/Meta';
-import { FullSizeCenteredFlexBox } from '@/components/styled';
+import { Content, ImageList, Lineb, Uone, Li } from './styled';
 
-function Page1() {
+//轮播组件
+function FirstPage() {
   return (
     <>
-      <Meta title="page 1" />
-      <FullSizeCenteredFlexBox>
-        <Typography variant="h3">Page 1</Typography>
-      </FullSizeCenteredFlexBox>
+      <Meta title="test" />
+      <Content>
+        <ImageList>
+          <Lineb>
+            <Uone>
+              <Li>
+                <img src=" http://www.runoob.com/images/pulpit.jpg"></img>{' '}
+              </Li>
+              <Li>
+                <img src=" http://www.runoob.com/images/pulpit.jpg"></img>
+              </Li>
+              <Li>
+                <img src=" http://www.runoob.com/images/pulpit.jpg"></img>
+              </Li>
+              <Li>
+                <img src=" http://www.runoob.com/images/pulpit.jpg"></img>
+              </Li>
+              <Li>
+                <img src=" http://www.runoob.com/images/pulpit.jpg"></img>
+              </Li>
+              <Li>
+                <img src=" http://www.runoob.com/images/pulpit.jpg"></img>
+              </Li>
+            </Uone>
+          </Lineb>
+        </ImageList>
+      </Content>
     </>
   );
 }
 
-export default Page1;
+export default FirstPage;
