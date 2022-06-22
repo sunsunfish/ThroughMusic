@@ -1,7 +1,7 @@
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-
 import { styled } from '@mui/system';
 
 const HotKeysButton = styled(Button)(({ theme }) => ({
@@ -27,4 +27,16 @@ const LayoutHeaderBox = styled(Box)(() => ({
   gridArea: '1 / 1 / 2 / 3',
 }));
 
-export { HotKeysButton, ChangeDarkButton, LayoutHeaderBox };
+const LoginButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  '&:hover': {
+    color: theme.palette.text.disabled,
+  },
+}));
+
+const UserAvatar = styled(Avatar)(() => ({
+  alignSelf: 'center',
+  cursor: 'pointer',
+}));
+
+export { HotKeysButton, ChangeDarkButton, LayoutHeaderBox, LoginButton, UserAvatar };

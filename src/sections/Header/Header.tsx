@@ -1,20 +1,24 @@
-import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import ThemeIcon from '@mui/icons-material/InvertColors';
+import LibraryMusicIcon from '@mui/icons-material/LibraryMusic';
 import AppBar from '@mui/material/AppBar';
-
 import Divider from '@mui/material/Divider';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 
 import { FlexBox } from '@/components/styled';
 import useHotKeysDialog from '@/store/hotkeys';
+import useLoginDialog from '@/store/login';
 import useTheme from '@/store/theme';
+import useUserInfo from '@/store/userInfo';
 
-import { HotKeysButton, ChangeDarkButton, LayoutHeaderBox } from './styled';
+import UserAvatar from './components/UserAvatar';
+import { ChangeDarkButton, HotKeysButton, LayoutHeaderBox, LoginButton } from './styled';
 
 function Header() {
+  const [userInfo] = useUserInfo();
   const [, themeActions] = useTheme();
   const [, hotKeysDialogActions] = useHotKeysDialog();
+  const [, loginActions] = useLoginDialog();
 
   return (
     <LayoutHeaderBox sx={{ flexGrow: 1 }}>
@@ -43,6 +47,14 @@ function Header() {
                 <ThemeIcon />
               </ChangeDarkButton>
             </Tooltip>
+            <Divider orientation="vertical" flexItem />
+            {userInfo?.token ? (
+              <UserAvatar />
+            ) : (
+              <LoginButton size="small" onClick={loginActions.open}>
+                登录
+              </LoginButton>
+            )}
           </FlexBox>
         </Toolbar>
       </AppBar>
