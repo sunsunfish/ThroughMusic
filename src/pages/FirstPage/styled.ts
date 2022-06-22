@@ -1,5 +1,6 @@
 import { styled } from '@mui/system';
 
+//整个盒子
 const SwipeContainer = styled('div')({
   backgroundColor: 'skyblue',
   width: '700px',
@@ -9,12 +10,14 @@ const SwipeContainer = styled('div')({
   margin: '0 auto',
 });
 
+//包裹轮播列表的样式
 const SwipeItemWrap = styled('ul')({
   display: 'flex',
   padding: '40px 0',
   margin: '0',
 });
 
+//轮播图列表
 const SwipeItem = styled('li')({
   backgroundColor: 'orange',
   listStyle: 'none',
@@ -43,6 +46,7 @@ const SwipeItem = styled('li')({
   },
 });
 
+//包裹轮播图下面的点点标识
 const SwipeDotWrap = styled('ul')({
   display: 'flex',
   justifyContent: 'center',
@@ -53,6 +57,8 @@ const SwipeDotWrap = styled('ul')({
   transform: 'translateX(-50%)',
   bottom: 0,
 });
+
+//轮播图下面的点点标识
 const SwipeDotItem = styled('ul')(({ theme }) => ({
   backgroundColor: '#e5e5e5',
   width: '10px',
@@ -66,24 +72,40 @@ const SwipeDotItem = styled('ul')(({ theme }) => ({
   },
 }));
 
+//左右箭头按钮
 const ArrowContainer = styled('div')({
   width: '40px',
   height: '60px',
-  margin: '10% 0 0 10%',
   position: 'absolute',
-  backgroundColor: 'blue',
-  left: '100px',
+  backgroundColor: 'transparent',
+  top: '35%',
+  '&:hover': {
+    backgroundColor: '#c0c0c0',
+    background: 'rgba(0, 0, 0, .1)',
+  },
+  '&.left': {
+    left: '0',
+  },
+  '&.right': {
+    right: '0',
+  },
 });
 
 const Arrow = styled('div')({
   position: 'relative',
   top: '27%',
-  left: '31%',
   width: '20px',
   height: '20px',
   borderTop: '3px solid #fff',
   borderRight: '3px solid #fff',
-  transform: 'rotate(-135deg)',
+  '&.left': {
+    left: '10px',
+    transform: 'rotate(-135deg)',
+  },
+  '&.right': {
+    right: '-10px',
+    transform: 'rotate(45deg)',
+  },
 });
 
 export {
