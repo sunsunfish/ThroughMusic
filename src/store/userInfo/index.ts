@@ -1,23 +1,8 @@
 import { atom, useRecoilState } from 'recoil';
 
+import localStorageEffect from '@/utils/localStorageEffect';
+
 import type { Actions, IUserInfo } from './types';
-
-const localStorageEffect =
-  (key: string) =>
-  ({ setSelf, onSet }) => {
-    const savedValue = localStorage.getItem(key);
-    if (savedValue != null) {
-      setSelf(JSON.parse(savedValue));
-    }
-
-    onSet((newValue: IUserInfo) => {
-      if (newValue instanceof DefaultValue) {
-        localStorage.removeItem(key);
-      } else {
-        localStorage.setItem(key, JSON.stringify(newValue));
-      }
-    });
-  };
 
 const userInfoState = atom<IUserInfo>({
   key: 'userInfoState',

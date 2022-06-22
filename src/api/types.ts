@@ -1,7 +1,3 @@
-import { IProfile, IUserAccount } from '@/api/login';
-
-export type IUserInfo = IProfile & IUserAccount;
-
 export interface IResult {
   code: number;
 }

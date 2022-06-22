@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useLocalStorage } from 'react-use';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -8,33 +7,34 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import { useLoginCellphone } from '@/api/login';
 import useLoginDialog from '@/store/login';
+import useUserInfo from '@/store/userInfo';
 
 import { FormItem, MyTextField } from './styled';
 
 function Login() {
   const [isLoginDialogOpen, loginActions] = useLoginDialog();
-  const [, setToken] = useLocalStorage('token', '');
-  const [, setUserInfo] = useLocalStorage('userInfo');
+  const [, userInfoActions] = useUserInfo();
 
   const [form, setForm] = useState({
     phone: '',
     password: '',
   });
 
-  const { data, refetch } = useLoginCellphone(form.phone, form.password);
+  const { data, refetch } = useLoginCellphone(form);
 
   useEffect(() => {
-    const token = data?.token;
-    const avatarUrl = data?.profile.avatarUrl;
-    const userName = data?.account.userName;
-    setToken(token);
-    if (!avatarUrl) return;
-    setUserInfo({
-      avatarUrl,
-      userName,
-    });
-    loginActions.close();
-  });
+    if (data) {
+      const token = data.token;
+      const avatarUrl = data.profile.avatarUrl;
+      const userName = data.account.userName;
+      userInfoActions.setUserInfo({
+        avatarUrl,
+        userName,
+        token,
+      });
+      loginActions.close();
+    }
+  }, [data, loginActions, userInfoActions]);
 
   return (
     <>

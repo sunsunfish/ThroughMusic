@@ -1,6 +1,6 @@
 import { IProfile, IUserAccount } from '@/api/login';
 
-type IUserInfo = IProfile & IUserAccount;
+type IUserInfo = IProfile & IUserAccount & { token: string };
 
 type Actions = {
   setUserInfo: (userInfo: IUserInfo) => void;
