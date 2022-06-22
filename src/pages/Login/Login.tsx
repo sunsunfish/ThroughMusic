@@ -1,17 +1,19 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { ILoginRes, useLoginCellphone } from '@/api/login';
+import { ILoginParams, ILoginRes, useLoginCellphone } from '@/api/login';
 import useLoginDialog from '@/store/login';
 import useUserInfo from '@/store/userInfo';
 
 import { FormInput, FormItem } from './styled';
 
 function Login() {
+  const { register, handleSubmit } = useForm<ILoginParams>();
   const [isLoginDialogOpen, loginActions] = useLoginDialog();
   const [, userInfoActions] = useUserInfo();
 
@@ -19,6 +21,11 @@ function Login() {
     phone: '',
     password: '',
   });
+
+  const onSubmit = (data: ILoginParams) => {
+    setForm(data);
+    refetch();
+  };
 
   const { refetch } = useLoginCellphone(form, {
     onSuccess: (res: ILoginRes) => {
@@ -39,34 +46,22 @@ function Login() {
       <Dialog onClose={loginActions.close} fullWidth maxWidth="xs" open={isLoginDialogOpen}>
         <DialogTitle>手机号登录</DialogTitle>
         <DialogContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <FormItem>
               <FormInput
-                onChange={(e) => {
-                  setForm({
-                    ...form,
-                    phone: e.target.value,
-                  });
-                }}
-                value={form.phone}
+                {...register('phone', { required: true })}
                 label="手机号"
                 variant="filled"
               />
             </FormItem>
             <FormItem>
               <FormInput
-                onChange={(e) => {
-                  setForm({
-                    ...form,
-                    password: e.target.value,
-                  });
-                }}
-                value={form.password}
+                {...register('password', { required: true })}
                 label="密码"
                 variant="filled"
               />
             </FormItem>
-            <Button onClick={() => refetch()} variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary">
               登录
             </Button>
           </form>

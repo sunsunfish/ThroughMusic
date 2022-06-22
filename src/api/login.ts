@@ -7,7 +7,7 @@ export interface IUserAccount {
   userName: string; // 用户姓名
 }
 
-interface ILoginParams {
+export interface ILoginParams {
   phone: string;
   password: string;
 }
