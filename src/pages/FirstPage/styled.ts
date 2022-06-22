@@ -23,7 +23,7 @@ const SwipeItem = styled('li')({
   flexShrink: '0',
   transition: 'all 0.5s ease-in-out',
   position: 'absolute',
-  left: '25%',
+  left: '28.5%',
   zIndex: '-1',
   img: {
     width: '100%',
@@ -66,15 +66,32 @@ const SwipeDotItem = styled('ul')(({ theme }) => ({
   },
 }));
 
-const Nban = styled('div')({
+const ArrowContainer = styled('div')({
+  width: '40px',
+  height: '60px',
+  margin: '10% 0 0 10%',
   position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%,-50%)',
-  fontSize: '25px',
-  color: 'black',
-  userSelect: 'none',
-  transition: 'all 0.3s',
+  backgroundColor: 'blue',
+  left: '100px',
 });
 
-export { SwipeContainer, SwipeItemWrap, SwipeItem, SwipeDotWrap, SwipeDotItem, Nban };
+const Arrow = styled('div')({
+  position: 'relative',
+  top: '27%',
+  left: '31%',
+  width: '20px',
+  height: '20px',
+  borderTop: '3px solid #fff',
+  borderRight: '3px solid #fff',
+  transform: 'rotate(-135deg)',
+});
+
+export {
+  SwipeContainer,
+  SwipeItemWrap,
+  SwipeItem,
+  SwipeDotWrap,
+  SwipeDotItem,
+  ArrowContainer,
+  Arrow,
+};

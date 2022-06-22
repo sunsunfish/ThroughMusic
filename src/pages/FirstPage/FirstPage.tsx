@@ -1,6 +1,14 @@
 import Meta from '@/components/Meta';
 import { useEffect, useState } from 'react';
-import { SwipeContainer, SwipeItem, SwipeItemWrap, SwipeDotWrap, SwipeDotItem } from './styled';
+import {
+  SwipeContainer,
+  SwipeItem,
+  SwipeItemWrap,
+  SwipeDotWrap,
+  SwipeDotItem,
+  ArrowContainer,
+  Arrow,
+} from './styled';
 
 //轮播组件
 function FirstPage() {
@@ -48,6 +56,9 @@ function FirstPage() {
         <button onClick={preSwipe}>上一张</button>
         <button onClick={nextSwipe}>下一张</button>
         <SwipeContainer>
+          <ArrowContainer>
+            <Arrow></Arrow>
+          </ArrowContainer>
           <SwipeItemWrap>
             {swipeList.map((item, idx) => (
               <SwipeItem
