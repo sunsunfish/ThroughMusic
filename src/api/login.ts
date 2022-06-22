@@ -12,17 +12,15 @@ interface ILoginPs {
   password: string;
 }
 
+export interface ILoginRes {
+  token: string;
+  account: IUserAccount;
+  profile: IProfile;
+}
+
 // 手机登录
-const useLoginCellphone = (ps: ILoginPs) =>
-  useRequest<
-    { phone: string; password: string },
-    {
-      token: string;
-      account: IUserAccount;
-      profile: IProfile;
-    },
-    unknown
-  >({
+const useLoginCellphone = (ps: ILoginPs, options: Record<string, unknown>) =>
+  useRequest<{ phone: string; password: string }, ILoginRes, unknown>({
     url: '/login/cellphone',
     params: {
       phone: ps.phone,
@@ -32,11 +30,12 @@ const useLoginCellphone = (ps: ILoginPs) =>
     options: {
       enabled: false,
       suspense: false,
+      ...options,
     },
   });
 
 // 登出
-const useLogout = (token: string) =>
+const useLogout = (token: string, options: Record<string, unknown>) =>
   useRequest<{ token: string }, { code: number }, unknown>({
     url: '/logout',
     params: {
@@ -46,6 +45,7 @@ const useLogout = (token: string) =>
     options: {
       enabled: false,
       suspense: false,
+      ...options,
     },
   });
 

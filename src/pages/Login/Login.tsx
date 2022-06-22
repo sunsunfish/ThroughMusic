@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import { useLoginCellphone } from '@/api/login';
+import { ILoginRes, useLoginCellphone } from '@/api/login';
 import useLoginDialog from '@/store/login';
 import useUserInfo from '@/store/userInfo';
 
@@ -20,21 +20,19 @@ function Login() {
     password: '',
   });
 
-  const { data, refetch } = useLoginCellphone(form);
-
-  useEffect(() => {
-    if (data) {
-      const token = data.token;
-      const avatarUrl = data.profile.avatarUrl;
-      const userName = data.account.userName;
+  const { refetch } = useLoginCellphone(form, {
+    onSuccess: (res: ILoginRes) => {
+      const token = res.token;
+      const avatarUrl = res.profile.avatarUrl;
+      const userName = res.account.userName;
       userInfoActions.setUserInfo({
         avatarUrl,
         userName,
         token,
       });
       loginActions.close();
-    }
-  }, [data, loginActions, userInfoActions]);
+    },
+  });
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment } from 'react';
 
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -14,18 +14,16 @@ import { UAvatar } from './styled';
 
 function UserAvatar() {
   const [userInfo, userInfoActions] = useUserInfo();
-  const { data, refetch } = useLogout(userInfo?.token);
-
-  useEffect(() => {
-    const code = data?.code;
-    code === 200 &&
-      userInfoActions.setUserInfo({
-        avatarUrl: '',
-        userName: '',
-        token: '',
-      });
-  }, [data, userInfoActions]);
-
+  const { refetch } = useLogout(userInfo.token, {
+    onSuccess: (res: { code: number }) => {
+      res.code === 200 &&
+        userInfoActions.setUserInfo({
+          avatarUrl: '',
+          userName: '',
+          token: '',
+        });
+    },
+  });
   return (
     <Box sx={{ alignSelf: 'center' }}>
       <Tooltip
