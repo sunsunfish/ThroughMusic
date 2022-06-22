@@ -24,7 +24,7 @@ const SwipeItem = styled('li')({
   width: '300px',
   height: '200px',
   flexShrink: '0',
-  transition: 'all 0.5s ease-in-out',
+  // transition: 'all 0.5s ease-in-out',
   position: 'absolute',
   left: '28.5%',
   zIndex: '-1',
