@@ -10,7 +10,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useLogout } from '@/api/login';
 import useUserInfo from '@/store/userInfo';
 
-import { UAvatar } from './styled';
+import { UserPhoto } from './styled';
 
 function UserAvatar() {
   const [userInfo, userInfoActions] = useUserInfo();
@@ -40,7 +40,7 @@ function UserAvatar() {
         }
         arrow
       >
-        <UAvatar variant="rounded" src={userInfo?.avatarUrl}></UAvatar>
+        <UserPhoto variant="rounded" src={userInfo?.avatarUrl}></UserPhoto>
       </Tooltip>
     </Box>
   );

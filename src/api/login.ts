@@ -7,7 +7,7 @@ export interface IUserAccount {
   userName: string; // 用户姓名
 }
 
-interface ILoginPs {
+interface ILoginParams {
   phone: string;
   password: string;
 }
@@ -19,7 +19,7 @@ export interface ILoginRes {
 }
 
 // 手机登录
-const useLoginCellphone = (ps: ILoginPs, options: Record<string, unknown>) =>
+const useLoginCellphone = (ps: ILoginParams, options: Record<string, unknown>) =>
   useRequest<{ phone: string; password: string }, ILoginRes, unknown>({
     url: '/login/cellphone',
     params: {

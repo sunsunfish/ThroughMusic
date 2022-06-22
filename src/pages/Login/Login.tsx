@@ -9,7 +9,7 @@ import { ILoginRes, useLoginCellphone } from '@/api/login';
 import useLoginDialog from '@/store/login';
 import useUserInfo from '@/store/userInfo';
 
-import { FormItem, MyTextField } from './styled';
+import { FormInput, FormItem } from './styled';
 
 function Login() {
   const [isLoginDialogOpen, loginActions] = useLoginDialog();
@@ -41,7 +41,7 @@ function Login() {
         <DialogContent>
           <form>
             <FormItem>
-              <MyTextField
+              <FormInput
                 onChange={(e) => {
                   setForm({
                     ...form,
@@ -54,7 +54,7 @@ function Login() {
               />
             </FormItem>
             <FormItem>
-              <MyTextField
+              <FormInput
                 onChange={(e) => {
                   setForm({
                     ...form,
