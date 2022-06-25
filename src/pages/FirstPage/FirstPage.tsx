@@ -54,13 +54,15 @@ function FirstPage() {
       <Meta title="test" />
       <div>
         <SwipeContainer>
-          {
-            ['left','right'].map((item ,index)=> (
-             <ArrowContainer className= {item} onClick={item === 'right' ? preSwipe : nextSwipe} key = {index}>
-              <Arrow className = {item}></Arrow>
+          {['left', 'right'].map((item, index) => (
+            <ArrowContainer
+              className={item}
+              onClick={item === 'right' ? preSwipe : nextSwipe}
+              key={index}
+            >
+              <Arrow className={item}></Arrow>
             </ArrowContainer>
-            )
-          }
+          ))}
           <SwipeItemWrap>
             {swipeList.map((item, idx) => (
               <SwipeItem
